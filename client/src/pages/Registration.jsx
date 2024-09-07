@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import registerImg from "../assets/images/register.jpg";
 import { AuthContext } from "../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Registration = () => {
   const {
@@ -12,12 +13,33 @@ const Registration = () => {
     setLoading,
     signIn,
     signInWithGoogle,
+    logOut,
+    updateProfile,
   } = useContext(AuthContext);
   console.log(createUser);
 
-  const handleCreateUser = (e) => {
+  const navigate = useNavigate();
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
     console.log(e);
+    const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(form, name, photo, email, password);
+    try {
+      const result = await createUser(email, password);
+      console.log(result);
+      await updateProfile(name, photo);
+      setUser({ ...user, photoURL: photo, displayName: name });
+      navigate("/");
+      toast.success("signUp successful");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
   };
   return (
     <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl my-12">
@@ -35,7 +57,7 @@ const Registration = () => {
           <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
         </div>
 
-        <form onSubmit={handleCreateUser}>
+        <form onSubmit={handleSignUp}>
           <div className="mt-4">
             <label
               className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
@@ -47,6 +69,21 @@ const Registration = () => {
               id="userName"
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
               type="text"
+              name="name"
+            />
+          </div>
+          <div className="mt-4">
+            <label
+              className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+              for="photoURL"
+            >
+              Photo
+            </label>
+            <input
+              id="photoURL"
+              className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
+              type="text"
+              name="photo"
             />
           </div>
           <div className="mt-4">
@@ -60,6 +97,7 @@ const Registration = () => {
               id="registrationEmailAddress"
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
               type="email"
+              name="email"
             />
           </div>
 
@@ -77,6 +115,7 @@ const Registration = () => {
               id="registrationPassword"
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
               type="password"
+              name="password"
             />
           </div>
 

@@ -23,13 +23,22 @@ const Login = () => {
   };
 
   //email password signIn
-  const handleEmailLogin = (e) => {
+  const handleEmailLogin = async (e) => {
     e.preventDefault();
     console.log(e);
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(form, email, password);
+    try {
+      const result = await signIn(email, password);
+      console.log(result);
+      toast.success("login with email-pass sucessfully");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
+    }
   };
   return (
     <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl my-12">
