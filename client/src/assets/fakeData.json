@@ -1,0 +1,113 @@
+/* chatgpt:i need a fake json data.make a fake json data consisiting 12 data in total.each data will contain any of these three categories:Web Development,Web Design,Digital Marketing.Each data will contain these properties as well :job_title,category,deadline,description,min_price,max_price,buyer_email
+*/
+[
+    {
+      "job_title": "E-commerce Website Development",
+      "category": "Web Development",
+      "deadline": "2024-10-01",
+      "description": "Develop a full-featured e-commerce website with payment gateway integration and product management system.",
+      "min_price": 2000,
+      "max_price": 4000,
+      "buyer_email": "buyer1@example.com"
+    },
+    {
+      "job_title": "Responsive Web Design for Blog",
+      "category": "Web Design",
+      "deadline": "2024-09-20",
+      "description": "Create a modern and responsive design for a personal blog using a mobile-first approach.",
+      "min_price": 800,
+      "max_price": 1500,
+      "buyer_email": "buyer2@example.com"
+    },
+    {
+      "job_title": "SEO Optimization for Existing Website",
+      "category": "Digital Marketing",
+      "deadline": "2024-09-30",
+      "description": "Optimize the website for search engines to improve ranking on Google. Focus on content, speed, and backlinks.",
+      "min_price": 1000,
+      "max_price": 2000,
+      "buyer_email": "buyer3@example.com"
+    },
+    {
+      "job_title": "Custom WordPress Theme Development",
+      "category": "Web Development",
+      "deadline": "2024-10-10",
+      "description": "Develop a custom WordPress theme from scratch, including plugin compatibility and responsive design.",
+      "min_price": 1500,
+      "max_price": 3000,
+      "buyer_email": "buyer4@example.com"
+    },
+    {
+      "job_title": "Landing Page Design",
+      "category": "Web Design",
+      "deadline": "2024-09-25",
+      "description": "Design a high-conversion landing page for a new product launch. Focus on user experience and call to action.",
+      "min_price": 500,
+      "max_price": 1200,
+      "buyer_email": "buyer5@example.com"
+    },
+    {
+      "job_title": "Social Media Marketing Strategy",
+      "category": "Digital Marketing",
+      "deadline": "2024-10-05",
+      "description": "Develop a comprehensive social media marketing strategy for Facebook and Instagram.",
+      "min_price": 900,
+      "max_price": 1800,
+      "buyer_email": "buyer6@example.com"
+    },
+    {
+      "job_title": "Corporate Website Redesign",
+      "category": "Web Design",
+      "deadline": "2024-09-18",
+      "description": "Redesign a corporate website to align with new branding guidelines. Must include mobile-friendly layouts.",
+      "min_price": 2500,
+      "max_price": 5000,
+      "buyer_email": "buyer7@example.com"
+    },
+    {
+      "job_title": "Performance Marketing Campaign",
+      "category": "Digital Marketing",
+      "deadline": "2024-10-12",
+      "description": "Plan and execute a performance marketing campaign focusing on Google Ads and Facebook Ads.",
+      "min_price": 1200,
+      "max_price": 2500,
+      "buyer_email": "buyer8@example.com"
+    },
+    {
+      "job_title": "Website Speed Optimization",
+      "category": "Web Development",
+      "deadline": "2024-09-28",
+      "description": "Optimize the speed of a WordPress website, improving both desktop and mobile performance scores.",
+      "min_price": 600,
+      "max_price": 1400,
+      "buyer_email": "buyer9@example.com"
+    },
+    {
+      "job_title": "Graphic Design for Website",
+      "category": "Web Design",
+      "deadline": "2024-10-02",
+      "description": "Create custom graphic designs for an existing website. Focus on illustrations and banner images.",
+      "min_price": 400,
+      "max_price": 1000,
+      "buyer_email": "buyer10@example.com"
+    },
+    {
+      "job_title": "Email Marketing Campaign Setup",
+      "category": "Digital Marketing",
+      "deadline": "2024-10-07",
+      "description": "Set up an email marketing campaign to promote a new product, including template design and automation.",
+      "min_price": 700,
+      "max_price": 1500,
+      "buyer_email": "buyer11@example.com"
+    },
+    {
+      "job_title": "Full-stack Web Application Development",
+      "category": "Web Development",
+      "deadline": "2024-09-22",
+      "description": "Develop a full-stack web application using React and Node.js. Must include user authentication and API integration.",
+      "min_price": 3000,
+      "max_price": 6000,
+      "buyer_email": "buyer12@example.com"
+    }
+  ]
+  
