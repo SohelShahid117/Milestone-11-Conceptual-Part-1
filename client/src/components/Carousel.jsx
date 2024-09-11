@@ -18,7 +18,7 @@ import bgImg3 from "../assets/images/carousel3.jpg";
 
 export default function Carousel() {
   return (
-    <div className="h-[600px] px-12 py-10 mx-10 my-5 rounded-2xl">
+    <div className="h-[600px] px-12 py-10 mx-10 my-5">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}

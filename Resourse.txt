@@ -1,0 +1,15 @@
+Client:
+1.react-router-dom : https://reactrouter.com/en/main/start/tutorial
+2.tailwind css : https://tailwindcss.com/docs/guides/vite
+3.firebase : https://firebase.google.com/docs/auth/web/start?hl=en&authuser=0
+
+4.navbar:https://daisyui.com/components/navbar/
+5.carousel || Slider : a. https://swiperjs.com/demos#autoplay
+                       b. https://merakiui.com/components/marketing/heros
+6.tabs : https://www.npmjs.com/package/react-tabs
+7.footer : https://merakiui.com/components/marketing/footers
+8.login form && registration form : https://merakiui.com/components/application-ui/sign-in-and-registration
+
+Server:
+1.express js : https://expressjs.com/en/starter/hello-world.html
+2.mongoDB : https://www.mongodb.com/cloud/atlas/register 
