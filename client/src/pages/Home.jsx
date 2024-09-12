@@ -8,6 +8,7 @@ const Home = () => {
   // const axios = require("axios");
   const allJobs = useLoaderData();
   console.log(allJobs);
+  // console.log(JSON.stringify(allJobs));
   // useEffect(() => {
   //   axios
   //     .get("http://localhost:3000/allJobs")
@@ -17,7 +18,7 @@ const Home = () => {
     <div>
       {/* <h2>home</h2> */}
       <Carousel></Carousel>
-      <TabCategories></TabCategories>
+      <TabCategories jobs={allJobs}></TabCategories>
     </div>
   );
 };

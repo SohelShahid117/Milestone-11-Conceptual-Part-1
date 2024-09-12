@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 })
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@cluster0.hfhifix.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -46,6 +46,18 @@ async function run() {
       // console.log(result)
       res.send(result)
     })
+    //get single job data from mongoDB
+    app.get("/job/:id",async(req,res)=>{
+      const id = req.params.id
+      const query = {_id:new ObjectId(id)}
+      const result = await jobsCollection.findOne(query)
+      res.send(result)
+    })
+    // app.get("/jobs/:email",async(req,res)=>{
+    //   const result = await jobsCollection.find().toArray()
+    //   // console.log(result)
+    //   res.send(result)
+    // })
 
 
 
