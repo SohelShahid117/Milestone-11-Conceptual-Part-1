@@ -1,14 +1,3 @@
-// import { StrictMode } from 'react'
-// import { createRoot } from 'react-dom/client'
-// import App from './App.jsx'
-// import './index.css'
-
-// createRoot(document.getElementById('root')).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>,
-// )
-
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -20,12 +9,15 @@ import Registration from "./pages/Registration";
 import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
 import JobDetails from "./pages/JobDetails";
+import AddJob from "./pages/AddJob";
+import ErrorPage from "./pages/Errorpage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     // element: <div className="text-3xl font-lato">Welcome to JS Enterprise</div>,
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -33,8 +25,6 @@ const router = createBrowserRouter([
         // loader: () => fetch(`${import.meta.env.VITE_API_URL / allJobs}`),
         loader: () => fetch("http://localhost:3000/allJobs"),
         // loader: () => fetch(`import.meta.env.VITE_API_URL`),
-        // loader: () => fetch(`${import.meta.env.VITE_API_URL / allJobs}`),
-        // loader: () => fetch(`${import.meta.env.VITE_API_URL}`),
       },
       {
         path: "/login",
@@ -49,6 +39,10 @@ const router = createBrowserRouter([
         element: <JobDetails></JobDetails>,
         // loader: ({ params }) => fetch(`http://localhost:3000/job${params.id}`),
         // loader: () => fetch(`http://localhost:3000/job/:id`),
+      },
+      {
+        path: "/addJob",
+        element: <AddJob></AddJob>,
       },
     ],
   },

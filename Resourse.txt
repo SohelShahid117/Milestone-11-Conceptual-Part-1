@@ -9,6 +9,7 @@ Client:
 6.tabs : https://www.npmjs.com/package/react-tabs
 7.footer : https://merakiui.com/components/marketing/footers
 8.login form && registration form : https://merakiui.com/components/application-ui/sign-in-and-registration
+9.form : https://merakiui.com/components/application-ui/forms
 
 Server:
 1.express js : https://expressjs.com/en/starter/hello-world.html

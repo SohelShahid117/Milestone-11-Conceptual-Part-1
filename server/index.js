@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
 const cors = require("cors")
+
 const corsOptions = {
   origin: ["http://localhost:5174","http://localhost:5173"],
   credentials : true,
@@ -17,7 +18,6 @@ require("dotenv").config()
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
-
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@cluster0.hfhifix.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
@@ -59,7 +59,11 @@ async function run() {
     //   res.send(result)
     // })
 
-
+    app.post("/bid",async(req,res)=>{
+      const bidData = req.body
+      const result = await bidsCollection.insertOne(bidData)
+      res.send(result)
+    })
 
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
