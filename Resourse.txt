@@ -14,3 +14,5 @@ Client:
 Server:
 1.express js : https://expressjs.com/en/starter/hello-world.html
 2.mongoDB : https://www.mongodb.com/cloud/atlas/register 
+
+Shakil Vai : https://github.com/shakilahmedatik/soloSphere-complete/blob/main/client/src/pages/AddJob.jsx

@@ -47,21 +47,30 @@ async function run() {
       res.send(result)
     })
     //get single job data from mongoDB
-    app.get("/job/:id",async(req,res)=>{
+    app.get("/jobDetails/:id",async(req,res)=>{
       const id = req.params.id
       const query = {_id:new ObjectId(id)}
       const result = await jobsCollection.findOne(query)
       res.send(result)
     })
-    // app.get("/jobs/:email",async(req,res)=>{
-    //   const result = await jobsCollection.find().toArray()
-    //   // console.log(result)
-    //   res.send(result)
-    // })
+
+    //get all posted jobs specific by email 
+    app.get("/jobs/:email",async(req,res)=>{
+      const email = req.params.email
+      const query = {buyer_email:email}
+      const result = await jobsCollection.find(query).toArray()
+      // console.log(result)
+      res.send(result)
+    })
 
     app.post("/bid",async(req,res)=>{
       const bidData = req.body
       const result = await bidsCollection.insertOne(bidData)
+      res.send(result)
+    })
+    app.post("/job",async(req,res)=>{
+      const jobData = req.body
+      const result = await jobsCollection.insertOne(jobData)
       res.send(result)
     })
 

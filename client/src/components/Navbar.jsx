@@ -52,7 +52,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <div>My Posted Jobs</div>
+                <Link to="/myPostedJob">My Posted Jobs</Link>
               </li>
               <li>
                 <div>My Bids</div>

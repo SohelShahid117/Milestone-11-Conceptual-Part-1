@@ -12,7 +12,7 @@ const JobDetails = () => {
   const [job, setJob] = useState([]);
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios(`http://localhost:3000/job/${id}`);
+      const { data } = await axios(`http://localhost:3000/jobDetails/${id}`);
       console.log(data);
       setJob(data);
     };
@@ -29,6 +29,7 @@ const JobDetails = () => {
     job_title,
     min_price,
     max_price,
+    buyer,
   } = job;
 
   const handleFormSubmit = async (e) => {
@@ -104,9 +105,16 @@ const JobDetails = () => {
           </p>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 flex flex-col">
           <h2 className="text-xl font-bold">Buyer Details : </h2>
+          <img
+            src={buyer?.photo}
+            alt=""
+            srcset=""
+            className="h-10 w-10 rounded-full"
+          />
           <span>Email : {buyer_email}</span>
+          <span>Name : {buyer?.name}</span>
         </div>
         <div className="mt-4">
           <h2 className="text-xl">

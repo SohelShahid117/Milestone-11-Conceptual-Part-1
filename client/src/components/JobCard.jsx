@@ -16,7 +16,7 @@ const JobCard = ({ job }) => {
   console.log(buyer_email);
   return (
     <Link
-      to={`/job/${_id}`}
+      to={`/jobDetails/${_id}`}
       className="max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800"
     >
       <div className="flex items-center justify-between">
@@ -35,7 +35,7 @@ const JobCard = ({ job }) => {
 
       <div className="mt-2">
         <Link
-          to={`/job/${_id}`}
+          to={`/jobDetails/${_id}`}
           className="text-xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline"
           tabindex="0"
           role="link"

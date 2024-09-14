@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 import JobDetails from "./pages/JobDetails";
 import AddJob from "./pages/AddJob";
 import ErrorPage from "./pages/Errorpage";
+import MyPostedJob from "./pages/myPostedJob";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
         loader: () => fetch("http://localhost:3000/allJobs"),
         // loader: () => fetch(`import.meta.env.VITE_API_URL`),
       },
+
       {
         path: "/login",
         element: <Login></Login>,
@@ -35,7 +37,7 @@ const router = createBrowserRouter([
         element: <Registration></Registration>,
       },
       {
-        path: "/job/:id",
+        path: "/jobDetails/:id",
         element: <JobDetails></JobDetails>,
         // loader: ({ params }) => fetch(`http://localhost:3000/job${params.id}`),
         // loader: () => fetch(`http://localhost:3000/job/:id`),
@@ -43,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/addJob",
         element: <AddJob></AddJob>,
+      },
+      {
+        path: "/myPostedJob",
+        element: <MyPostedJob></MyPostedJob>,
       },
     ],
   },
