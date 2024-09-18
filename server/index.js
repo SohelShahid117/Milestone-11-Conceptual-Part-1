@@ -62,6 +62,14 @@ async function run() {
       // console.log(result)
       res.send(result)
     })
+    //delete a job
+    app.delete("/jobs/:id",async(req,res)=>{
+      const id = req.params.id
+      const query = {_id:new ObjectId(id)}
+      const result = await jobsCollection.deleteOne(query)
+      // console.log(result)
+      res.send(result)
+    })
 
     app.post("/bid",async(req,res)=>{
       const bidData = req.body

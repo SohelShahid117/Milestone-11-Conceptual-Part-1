@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const MyPostedJob = () => {
   const { user } = useContext(AuthContext);
@@ -15,6 +16,23 @@ const MyPostedJob = () => {
     getData();
   }, [user]);
   console.log(jobs);
+  const handleDeleteJob = async (id) => {
+    console.log("delete-->", id);
+    try {
+      const { data } = await axios.delete(`http://localhost:3000/jobs/${id}`);
+      console.log(data);
+      if (data.deletedCount) {
+        toast.success("deleted successfully");
+        // const remainingJobs = jobs.filter(jobs._id !== id);
+        const remainingJobs = jobs.filter((j) => j._id !== id);
+        console.log(remainingJobs);
+        setJobs(remainingJobs);
+      }
+    } catch (err) {
+      console.log(err.message);
+      toast.error(err.message);
+    }
+  };
   return (
     <section className="container px-4 mx-auto">
       <div className="flex items-center gap-x-3">
@@ -98,8 +116,17 @@ const MyPostedJob = () => {
                           ${job.min_price}-${job.max_price}
                         </span>
                       </td>
-                      <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                        <span>{job.category}</span>
+                      <td className="px-4 py-4 mx-auto text-sm font-medium text-gray-700 whitespace-nowrap">
+                        <span
+                          className={`px-2 py-2  mx-auto flex  ${
+                            job.category == "Web Development" && "bg-green-400"
+                          } ${job.category == "Web Design" && "bg-pink-400"} ${
+                            job.category == "Digital Marketing" &&
+                            "bg-orange-400"
+                          }`}
+                        >
+                          {job.category}
+                        </span>
                       </td>
                       <td
                         title={job.description}
@@ -113,7 +140,10 @@ const MyPostedJob = () => {
 
                       <td className="px-4 py-4 text-sm whitespace-nowrap">
                         <div className="flex items-center gap-x-6">
-                          <button className="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
+                          <button
+                            onClick={() => handleDeleteJob(job._id)}
+                            className="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none"
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
