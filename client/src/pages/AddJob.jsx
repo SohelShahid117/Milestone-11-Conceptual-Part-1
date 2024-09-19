@@ -119,8 +119,8 @@ const AddJob = () => {
                 required
                 className="p-[10px] border-2 rounded-md"
               >
-                <option value="Web Development">Web Development</option>
                 <option value="Web Design">Web Design</option>
+                <option value="Web Development">Web Development</option>
                 <option value="Digital Marketing">Digital Marketing</option>
               </select>
             </div>

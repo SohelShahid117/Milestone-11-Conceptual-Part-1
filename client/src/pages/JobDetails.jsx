@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const JobDetails = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   console.log(user);
   const { id } = useParams();
   console.log(id);
@@ -45,7 +46,9 @@ const JobDetails = () => {
     const status = "pending";
     // console.log(form, price, email, comment, deadline);
     if (bidderEmail === buyer_email)
-      return toast.error("Action not permitted!");
+      return toast.error(
+        "Action not permitted! bidder email & buyer email same"
+      );
     if (price < parseFloat(min_price) || price > parseFloat(max_price))
       return toast.error("Offer Should be in Price range.");
     const bidData = {
@@ -58,7 +61,6 @@ const JobDetails = () => {
       status,
       category,
       buyer_email,
-      status,
     };
     console.table(bidData);
     try {
@@ -66,6 +68,7 @@ const JobDetails = () => {
       console.log(data);
       if (data.acknowledged) {
         toast.success("data inserted to database successfully");
+        navigate("/");
       }
     } catch (err) {
       console.log(err);

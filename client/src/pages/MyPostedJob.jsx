@@ -8,6 +8,7 @@ const MyPostedJob = () => {
   const { user } = useContext(AuthContext);
   const [jobs, setJobs] = useState([]);
   console.log(user?.email);
+
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios(`http://localhost:3000/jobs/${user?.email}`);
@@ -17,6 +18,7 @@ const MyPostedJob = () => {
     getData();
   }, [user]);
   console.log(jobs);
+
   const handleDeleteJob = async (id) => {
     console.log("delete-->", id);
     try {
@@ -34,6 +36,7 @@ const MyPostedJob = () => {
       toast.error(err.message);
     }
   };
+
   return (
     <section className="container px-4 mx-auto">
       <div className="flex items-center gap-x-3">
