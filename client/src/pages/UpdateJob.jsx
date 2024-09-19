@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const UpdateJob = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   console.log(user);
   const { id } = useParams();
   console.log(id);
@@ -18,10 +20,6 @@ const UpdateJob = () => {
     getData();
   }, []);
   console.log(job);
-  const handleUpdateJob = (e) => {
-    e.preventDefault();
-    console.log("hello");
-  };
   const {
     _id,
     buyer_email,
@@ -33,9 +31,54 @@ const UpdateJob = () => {
     max_price,
     buyer,
   } = job;
+
+  const handleUpdateJob = async (e) => {
+    e.preventDefault();
+    console.log("hello");
+    const form = e.target;
+    console.log(form);
+    const job_title = form.jobtitle.value;
+    const buyer_email = form.email.value;
+    const deadline = form.deadline.value;
+    const category = form.category.value;
+    const min_price = parseFloat(form.minprice.value);
+    const max_price = parseFloat(form.maxprice.value);
+    const description = form.description.value;
+
+    const updateJobData = {
+      job_title,
+      deadline,
+      category,
+      min_price,
+      max_price,
+      description,
+      buyer_email,
+      buyer: {
+        buyer_email,
+        name: user?.displayName,
+        photo: user?.photoURL,
+      },
+    };
+    console.table(updateJobData);
+    try {
+      const { data } = await axios.put(
+        `http://localhost:3000/updateJob/${id}`,
+        updateJobData
+      );
+      console.log(data);
+      if (data.modifiedCount) {
+        toast.success("data updated successfully");
+        navigate(`/myPostedJob`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    //   form.reset("");
+  };
+
   return (
     <div>
-      <h2>Update the page</h2>
+      <h2>Update the Job</h2>
       <div>
         {/* <h2>Add Job Page</h2> */}
         <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">

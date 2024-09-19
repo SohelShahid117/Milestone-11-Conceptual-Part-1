@@ -76,9 +76,26 @@ async function run() {
       const result = await bidsCollection.insertOne(bidData)
       res.send(result)
     })
+
     app.post("/job",async(req,res)=>{
       const jobData = req.body
       const result = await jobsCollection.insertOne(jobData)
+      res.send(result)
+    })
+
+    //update posted job
+    app.put("/updateJob/:id",async(req,res)=>{
+      const id = req.params.id;
+      const updateJbData = req.body
+      console.log(updateJbData)
+      const query = {_id : new ObjectId(id)}
+      const options = {upsert : true}
+      const updateDoc = {
+        $set : {
+          ...updateJbData
+        }
+      }
+      const result = await jobsCollection.updateOne(query,updateDoc,options)
       res.send(result)
     })
 
