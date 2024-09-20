@@ -29,10 +29,12 @@ const Navbar = () => {
 
         {user && (
           <div className="dropdown dropdown-end z-50">
+            {/* <span className="font-semibold">{user.email}</span> */}
             <div
               tabIndex={0}
               role="button"
               className="btn btn-ghost btn-circle avatar"
+              title={user.email}
             >
               <div className="w-10 rounded-full" title={user?.displayName}>
                 <img
@@ -55,7 +57,7 @@ const Navbar = () => {
                 <Link to="/myPostedJob">My Posted Jobs</Link>
               </li>
               <li>
-                <div>My Bids</div>
+                <Link to="/myBids">My Bids</Link>
               </li>
               <li>
                 <div>Bid Requests</div>
