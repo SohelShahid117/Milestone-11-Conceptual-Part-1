@@ -60,7 +60,7 @@ const Navbar = () => {
                 <Link to="/myBids">My Bids</Link>
               </li>
               <li>
-                <div>Bid Requests</div>
+                <Link to="/bidRequest">Bid Requests</Link>
               </li>
               <li className="mt-2">
                 <Link

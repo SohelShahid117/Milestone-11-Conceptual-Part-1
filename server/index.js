@@ -104,12 +104,21 @@ async function run() {
     })
 
     //my bids job collection
-    //get all posted jobs specific by email 
+    //get all bidder applied jobs specific by bidder email 
     app.get("/myBidJobs/:email",async(req,res)=>{
       const email = req.params.email
       const query = {bidderEmail:email}
       const result = await bidsCollection.find(query).toArray()
-      console.log(result)
+      // console.log(result)
+      res.send(result)
+    })
+
+    //get all requested job to buyer by buyer email
+    app.get("/buyerBidRequestJob/:email",async(req,res)=>{
+      const email = req.params.email
+      const query = {buyer_email:email}
+      const result = await bidsCollection.find(query).toArray()
+      // console.log(result)
       res.send(result)
     })
 

@@ -61,6 +61,7 @@ const JobDetails = () => {
       status,
       category,
       buyer_email,
+      job_title,
     };
     console.table(bidData);
     try {
@@ -68,7 +69,7 @@ const JobDetails = () => {
       console.log(data);
       if (data.acknowledged) {
         toast.success("data inserted to database successfully");
-        navigate("/");
+        navigate("/myBids");
       }
     } catch (err) {
       console.log(err);
