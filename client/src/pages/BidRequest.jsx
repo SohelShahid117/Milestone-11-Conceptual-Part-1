@@ -38,7 +38,7 @@ const BidRequest = () => {
     console.log("hello", id, previousStatus, currentStatus);
     const status = currentStatus;
     const { data } = await axios.patch(
-      `http://localhost:3000/buyerUpdateBidStatus/${id}`,
+      `http://localhost:3000/updateBidStatus/${id}`,
       { status }
     );
     getData();
@@ -108,6 +108,14 @@ const BidRequest = () => {
                       className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
                       <button class="flex items-center gap-x-2">
+                        <span>Bidder Email</span>
+                      </button>
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                    >
+                      <button class="flex items-center gap-x-2">
                         <span>Action</span>
                       </button>
                     </th>
@@ -151,6 +159,9 @@ const BidRequest = () => {
                           {bid.status}
                           {/* {bid.description.substring(0, 30)}... */}
                         </span>
+                      </td>
+                      <td className="px-4 py-4 text-lg  text-gray-700 whitespace-nowrap">
+                        <span>{bid.bidderEmail}</span>
                       </td>
 
                       <td className="px-4 py-4 text-sm whitespace-nowrap">

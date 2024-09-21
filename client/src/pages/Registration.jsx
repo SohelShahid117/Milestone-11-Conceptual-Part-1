@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import registerImg from "../assets/images/register.jpg";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Registration = () => {
   const {
@@ -34,6 +35,14 @@ const Registration = () => {
       console.log(result);
       setUser({ ...user, photoURL: photo, displayName: name });
       // await updateProfile(name, photo);
+      const { data } = await axios.post(
+        "http://localhost:3000/jwt",
+        {
+          email: result?.user?.email,
+        },
+        { withCredentials: true }
+      );
+      console.log(data);
       navigate("/");
       toast.success("signUp successful");
     } catch (err) {

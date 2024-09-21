@@ -2,6 +2,10 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
 const cors = require("cors")
+const jwt = require("jsonwebtoken")
+const cookieParser = require("cookie-parser");
+// const crypto = require('crypto');
+
 
 const corsOptions = {
   origin: ["http://localhost:5174","http://localhost:5173"],
@@ -10,6 +14,7 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 app.use(express.json())
+app.use(cookieParser());
 require("dotenv").config()
 
 //JS_Tech
@@ -39,6 +44,30 @@ async function run() {
 
     const jobsCollection = client.db("JS_Tech_Job_Categories").collection("Job_Categories")
     const bidsCollection = client.db("JS_Tech_Job_Categories").collection("bids")
+
+    //generate JWT-->JSON Web Token
+    app.post("/jwt",async(req,res)=>{
+      const user = req.body
+      console.log(user)
+      const token = jwt.sign(user,process.env.access_token_jwt,{expiresIn:'365d'})
+      // res.send({token})
+      res.cookie("token",token,{
+        httpOnly:true,
+        secure:process.env.NODE_ENV==='production',
+        sameSite:process.env.NODE_ENV==='production'?"none":"strict"
+      }).send({success:true})
+    })
+
+    //clear Token at logout
+    app.get("/logout",(req,res)=>{
+      res.clearCookie("token",{
+        httpOnly:true,
+        secure:process.env.NODE_ENV==='production',
+        sameSite:process.env.NODE_ENV==='production'?"none":"strict",
+        maxAge:0,
+      }).send({success:true})
+
+    })
 
     //get all jobs data from mongoDB
     app.get("/allJobs",async(req,res)=>{
@@ -123,7 +152,7 @@ async function run() {
     })
 
     //update bid status by buyer
-    app.patch("/buyerUpdateBidStatus/:id",async(req,res)=>{
+    app.patch("/updateBidStatus/:id",async(req,res)=>{
       const id = req.params.id;
       const status = req.body;
       console.log(status)
