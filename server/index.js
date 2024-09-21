@@ -122,6 +122,21 @@ async function run() {
       res.send(result)
     })
 
+    //update bid status by buyer
+    app.patch("/buyerUpdateBidStatus/:id",async(req,res)=>{
+      const id = req.params.id;
+      const status = req.body;
+      console.log(status)
+      const query = {_id : new ObjectId(id)}
+      // const options = {upsert : true}
+      const updateDoc = {
+        $set : status,
+      }
+      // const result = await bidsCollection.updateOne(query,updateDoc,options)
+      const result = await bidsCollection.updateOne(query,updateDoc)
+      res.send(result)
+    })
+
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {

@@ -3,26 +3,46 @@ import { AuthContext } from "../provider/AuthProvider";
 import axios from "axios";
 import { TiTick } from "react-icons/ti";
 import { TiCancel } from "react-icons/ti";
+import { toast } from "react-hot-toast";
 
 const BidRequest = () => {
   const { user } = useContext(AuthContext);
   const [bidRequest, setBidRequest] = useState([]);
   console.log(user?.email);
   useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios(
-        `http://localhost:3000/buyerBidRequestJob/${user?.email}`
-      );
-      console.log(data);
-      setBidRequest(data);
-    };
+    // const getData = async () => {
+    //   const { data } = await axios(
+    //     `http://localhost:3000/buyerBidRequestJob/${user?.email}`
+    //   );
+    //   console.log(data);
+    //   setBidRequest(data);
+    // };
     getData();
   }, [user]);
   console.log(bidRequest);
+  const getData = async () => {
+    const { data } = await axios(
+      `http://localhost:3000/buyerBidRequestJob/${user?.email}`
+    );
+    console.log(data);
+    setBidRequest(data);
+  };
+  // getData();
 
   //handle status
-  const handleStatus = () => {
-    console.log("hello");
+  const handleStatus = async (id, previousStatus, currentStatus) => {
+    if (previousStatus == currentStatus)
+      return toast.error(
+        "sorry vai r samne jaien na COZ preStatus & currentStatus same"
+      );
+    console.log("hello", id, previousStatus, currentStatus);
+    const status = currentStatus;
+    const { data } = await axios.patch(
+      `http://localhost:3000/buyerUpdateBidStatus/${id}`,
+      { status }
+    );
+    getData();
+    console.log(data);
   };
   return (
     <section className="container px-4 mx-auto">
@@ -124,7 +144,7 @@ const BidRequest = () => {
                         <span
                           className={`px-2 py-2  mx-auto flex w-[200px] h-auto ${
                             bid.status == "pending" && "bg-yellow-200"
-                          } ${bid.status == "rejected" && "bg-orange-400"}  ${
+                          } ${bid.status == "rejected" && "bg-red-400"}  ${
                             bid.status == "in-progress" && "bg-green-300"
                           } ${bid.status == "confirm" && "bg-green-400"}`}
                         >
@@ -135,10 +155,27 @@ const BidRequest = () => {
 
                       <td className="px-4 py-4 text-sm whitespace-nowrap">
                         <div className="flex gap-5 p-2 mx-2 text-center">
-                          <button className="text-green-500 text-2xl btn-primary transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300  focus:outline-none">
+                          {/* in-progress button */}
+                          <button
+                            onClick={() =>
+                              handleStatus(bid._id, bid.status, "in-progress")
+                            }
+                            className={`${
+                              bid.status == "complete"
+                                ? "btn btn-disabled"
+                                : "text-green-500 text-2xl btn-primary transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300  focus:outline-none"
+                            }`}
+                          >
                             <TiTick />
                           </button>
-                          <button className="text-red-500 text-2xl btn-primary transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 focus:outline-none">
+
+                          {/* rejected button */}
+                          <button
+                            onClick={() =>
+                              handleStatus(bid._id, bid.status, "rejected")
+                            }
+                            className="text-red-500 text-2xl btn-primary transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 focus:outline-none"
+                          >
                             <TiCancel />
                           </button>
                         </div>

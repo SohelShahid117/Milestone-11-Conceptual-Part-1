@@ -119,7 +119,7 @@ const MyBids = () => {
                         <span
                           className={`px-2 py-2  mx-auto flex w-[200px] h-auto ${
                             bid.status == "pending" && "bg-yellow-200"
-                          } ${bid.status == "rejected" && "bg-orange-400"}  ${
+                          } ${bid.status == "rejected" && "bg-red-400"}  ${
                             bid.status == "in-progress" && "bg-green-300"
                           } ${bid.status == "confirm" && "bg-green-400"}`}
                         >
