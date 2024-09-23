@@ -11,14 +11,17 @@ const Login = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const from = location.state || "/";
+  const path = location.state || "/";
 
   //google signIn
   const handleGoogleSignIn = async (e) => {
     console.log(e);
     try {
+      //step-1:google signIn from firebase
       const result = await signInWithGoogle();
-      console.log(result);
+      console.log(result.user);
+
+      //step-2 : get token from server using email--->this part for jwt
       const { data } = await axios.post(
         "http://localhost:3000/jwt",
         {
@@ -26,10 +29,11 @@ const Login = () => {
         },
         { withCredentials: true }
       );
+
       console.log(data);
-      toast.success("sign in with google sucessfully");
+      toast.success("sign in with google successful");
       // navigate("/");
-      navigate(from, { replace: true });
+      navigate(path, { replace: true });
     } catch (err) {
       console.log(err);
       toast.error(err?.message);
@@ -47,6 +51,8 @@ const Login = () => {
     try {
       const result = await signIn(email, password);
       console.log(result);
+
+      //this part for jwt
       const { data } = await axios.post(
         "http://localhost:3000/jwt",
         {
@@ -54,9 +60,10 @@ const Login = () => {
         },
         { withCredentials: true }
       );
+
       toast.success("login with email-pass sucessfully");
       // navigate("/");
-      navigate(from, { replace: true });
+      navigate(path, { replace: true });
     } catch (err) {
       console.log(err);
       toast.error(err?.message);

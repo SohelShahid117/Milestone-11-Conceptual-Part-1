@@ -3,7 +3,7 @@ const app = express()
 const port = process.env.PORT || 3000
 const cors = require("cors")
 const jwt = require("jsonwebtoken")
-const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");  //use for token cookie
 // const crypto = require('crypto');
 
 
@@ -14,8 +14,28 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 app.use(express.json())
-app.use(cookieParser());
+app.use(cookieParser());          //use for token cookie
 require("dotenv").config()
+
+//verify JWT middleware
+
+const verifyToken = (req,res,next)=>{
+  console.log("ami akjon middle man")
+  const token = req?.cookies?.tokennn
+  console.log("token t holo : ",token)
+    if(!token) return res.status(401).send({message:"akane ascho keno ? tomi unAuthorized person.Ber how akn"})
+    if(token){
+        jwt.verify(token,process.env.access_token_jwt,(err,decode)=>{
+          if(err){
+            console.log(err)
+            return res.status(403).send({message:"Bhol token anecho"})
+          }
+          console.log(decode);
+          req.user = decode
+          next();
+        })
+      }
+}
 
 //JS_Tech
 //bNNnB6m7sIPG2RlC
@@ -47,11 +67,12 @@ async function run() {
 
     //generate JWT-->JSON Web Token
     app.post("/jwt",async(req,res)=>{
-      const user = req.body
-      console.log(user)
-      const token = jwt.sign(user,process.env.access_token_jwt,{expiresIn:'365d'})
+      const userEmail = req.body
+      console.log(userEmail)
+      const token =  jwt.sign(userEmail,process.env.access_token_jwt,{expiresIn:'365d'})
+      console.log(token)
       // res.send({token})
-      res.cookie("token",token,{
+      res.cookie("tokennn",token,{
         httpOnly:true,
         secure:process.env.NODE_ENV==='production',
         sameSite:process.env.NODE_ENV==='production'?"none":"strict"
@@ -60,7 +81,7 @@ async function run() {
 
     //clear Token at logout
     app.get("/logout",(req,res)=>{
-      res.clearCookie("token",{
+      res.clearCookie("tokennn",{
         httpOnly:true,
         secure:process.env.NODE_ENV==='production',
         sameSite:process.env.NODE_ENV==='production'?"none":"strict",
@@ -77,8 +98,24 @@ async function run() {
     })
 
     //get all posted jobs specific by email 
-    app.get("/jobs/:email",async(req,res)=>{
+    app.get("/jobs/:email",verifyToken,async(req,res)=>{
+      
+      // const token = req.cookies?.tokennn
+      // console.log(token,"from jobs API")
+      // if(token){
+      //   jwt.verify(token,process.env.access_token_jwt,(err,decode)=>{
+      //     if(err){
+      //       console.log(err,"is err")
+      //     }
+      //       console.log(decode,"it is decode")
+      //       // let tokenEmail = decode?.email
+      //   })
+      // }
+
+      const tokenEmail = req.user?.email;
+      console.log(tokenEmail,"token email from job API")
       const email = req.params.email
+      if(tokenEmail !==email) return res.status(403).send({message:"Forbidden access"});
       const query = {buyer_email:email}
       const result = await jobsCollection.find(query).toArray()
       // console.log(result)
@@ -86,7 +123,7 @@ async function run() {
     })
 
      //get single job data from mongoDB
-     app.get("/jobDetails/:id",async(req,res)=>{
+     app.get("/jobDetails/:id",verifyToken,async(req,res)=>{
       const id = req.params.id
       const query = {_id:new ObjectId(id)}
       const result = await jobsCollection.findOne(query)
@@ -134,7 +171,7 @@ async function run() {
 
     //my bids job collection
     //get all bidder applied jobs specific by bidder email 
-    app.get("/myBidJobs/:email",async(req,res)=>{
+    app.get("/myBidJobs/:email",verifyToken,async(req,res)=>{
       const email = req.params.email
       const query = {bidderEmail:email}
       const result = await bidsCollection.find(query).toArray()
@@ -143,7 +180,7 @@ async function run() {
     })
 
     //get all requested job to buyer by buyer email
-    app.get("/buyerBidRequestJob/:email",async(req,res)=>{
+    app.get("/buyerBidRequestJob/:email",verifyToken,async(req,res)=>{
       const email = req.params.email
       const query = {buyer_email:email}
       const result = await bidsCollection.find(query).toArray()
@@ -180,3 +217,4 @@ app.listen(port, () => {
   console.log(`server is running at http://localhost:${port}`)
   console.log(`Example app listening on port ${port}`)
 })
+

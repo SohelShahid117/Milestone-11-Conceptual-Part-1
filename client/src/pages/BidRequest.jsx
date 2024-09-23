@@ -22,7 +22,8 @@ const BidRequest = () => {
   console.log(bidRequest);
   const getData = async () => {
     const { data } = await axios(
-      `http://localhost:3000/buyerBidRequestJob/${user?.email}`
+      `http://localhost:3000/buyerBidRequestJob/${user?.email}`,
+      { withCredentials: true }
     );
     console.log(data);
     setBidRequest(data);

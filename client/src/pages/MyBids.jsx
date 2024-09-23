@@ -20,7 +20,8 @@ const MyBids = () => {
   }, [user]);
   const getData = async () => {
     const { data } = await axios(
-      `http://localhost:3000/myBidJobs/${user?.email}`
+      `http://localhost:3000/myBidJobs/${user?.email}`,
+      { withCredentials: true }
     );
     console.log(data);
     setBids(data);

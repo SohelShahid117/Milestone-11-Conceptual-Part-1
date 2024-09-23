@@ -11,7 +11,10 @@ const MyPostedJob = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios(`http://localhost:3000/jobs/${user?.email}`);
+      const { data } = await axios(
+        `http://localhost:3000/jobs/${user?.email}`,
+        { withCredentials: true }
+      );
       console.log(data);
       setJobs(data);
     };

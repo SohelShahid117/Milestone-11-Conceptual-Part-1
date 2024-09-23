@@ -13,7 +13,9 @@ const JobDetails = () => {
   const [job, setJob] = useState([]);
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios(`http://localhost:3000/jobDetails/${id}`);
+      const { data } = await axios(`http://localhost:3000/jobDetails/${id}`, {
+        withCredentials: true,
+      });
       console.log(data);
       setJob(data);
     };
